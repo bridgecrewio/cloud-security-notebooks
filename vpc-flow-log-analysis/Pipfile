@@ -1,0 +1,23 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+pyjq = '*'
+pillow = '*'
+netaddr = '*'
+six = '*'
+seaborn = '*'
+matplotlib = '*'
+geoip2 = '*'
+policyuniverse = '*'
+PyYAML = '*'
+Jinja2= '*'
+boto3 = '*'
+jupyter = '*'
+
+[requires]
+python_version = "3.7"
