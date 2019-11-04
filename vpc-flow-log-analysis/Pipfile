@@ -17,6 +17,7 @@ policyuniverse = '*'
 PyYAML = '*'
 Jinja2= '*'
 boto3 = '*'
+boto = '*'
 jupyter = '*'
 
 [requires]
