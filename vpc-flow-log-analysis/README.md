@@ -6,8 +6,6 @@ in VPC flow logs of an AWS account.
 * [Architecture](#architecture)
 * [Setup](#setup)
 * [Execution Flow](#execution-flow)
-* [Contact](#contact)
-
 
 ## Rationale
 An AWS account contains a VPC. Within it, EC2/ECS instances are attached with Elastic
@@ -82,9 +80,3 @@ The following steps are carried throughout the process:
 * Query flow log Athena table for un-rejected traffic
 * Identify used ENIs by identifying used ports
 * Summarize results
-
-
-
-
-## Contact
-Created by [Bridgecrew](https://www.bridgecrew.io)
