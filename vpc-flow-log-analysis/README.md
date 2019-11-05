@@ -3,6 +3,7 @@ A script to collect all active elastic network interface by validating used port
 in VPC flow logs of an AWS account.
 ## Table of contents
 * [Rationale](#rationale)
+* [Architecture](#architecture)
 * [Setup](#setup)
 * [Execution Flow](#execution-flow)
 * [Contact](#contact)
