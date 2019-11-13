@@ -1,11 +1,10 @@
 # S3 Access Logs Analysis
-This script collects all the S3 access logs in the specified bucket, and checks if any of the communication to the 
+This script collects all the S3 access logs in the specified bucket, and checks if any of the traffic to and from the 
 bucket does not use SSL.
 
 ## Table of contents
 * [Architecture](#architecture)
 * [Setup](#setup)
-* [Execution Flow](#execution-flow)
 
 ## Architecture
 
@@ -17,31 +16,7 @@ bucket does not use SSL.
 Configure AWS SDK with the account to collect (profile entry in AWS shared credentials file).
 In addition, the following environment variables needs to be set:
 
-* `ACCOUNT_ID`- AWS Account to collect (required)
-* `ASSUME_RULE_PROFILE` - Assume role ARN to use (optional)
-* `AWS_ROLE_SESSION_NAME` - Boto3 session name (optional)
-* `AWS_SHARED_CREDENTIALS_FILE` - AWS Credetails file path (optional, defaults to `~/.aws/credentials` )
-* `AWS_PROFILE` - Name of the AWS profile to use, as appears in the credentials file. if not set, the default profile is used
-* `AWS_DEFAULT_REGION` - Default AWS region to use (required)
-* `S3_FLOW_LOG_BUCKET` - VPC flow logs S3 bucket name (required)
-* `S3_FLOW_LOG_PATH` - VPC flow logs S3 object path in the bucket (required)
-
-if `ASSUME_RULE_PROFILE` environment variable is set, the profile name provided at the `AWS_PROFILE` 
-environment variable is used as a source profile to assume `ASSUME_RULE_PROFILE` on the selected account. 
-Otherwise, the profile configured at the `AWS_PROFILE` is used.
-Make sure the source profile has full CRUD Athena permissions on the account
-Make sure you assume role has the following permissions:
-* Describe network interfaces of EC2 instances
-* Describe VPC's security groups
-
-
-### VPC Flow Logs Acquisition
-
-Collect VPC flow logs of the account to be analysed, and persist it to an S3 bucket prior to execution.
-Follow the instructions at the official AWS docs [official AWS docs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs-s3.html)
-
-In the notebook, configure Athena's database,table and view name to be created, 
-and the Athena S3 output bucket name. (Found in the "Athena Configuration" cell)
+* `S3_ACCESS_LOGS_BUCKET` - S3 bucket that contains all the S3 access logs (required)
 
 ### Workspace
 * Install required Python packages with pipenv:
@@ -52,20 +27,10 @@ and the Athena S3 output bucket name. (Found in the "Athena Configuration" cell)
 
    `jupyter notebook`
 
-
-## Execution Flow
-
-![Alt text](assets/vpc_flow_diag.png?raw=true "Flow Chart")
-
 ### Description
 
 The following steps are carried throughout the process:
 
-* Initiate an AWS session (With a selected profile or with assume role via STS client)
-* ENIs data are collected, and enriched with their security groups' configuration data
-* Select only public facing ENIs
-* Corresponding Athena database, table and view are created to be later populated by the flow logs
-* Populate Athena table with VPC flow logs
-* Query flow log Athena table for un-rejected traffic
-* Identify used ENIs by identifying used ports
-* Summarize results
+* A matching Athena database, table and view are created and populated by the access logs from the bucket selected
+* Query Athena view for un-secure traffic
+* Display the un-secure traffic and the identity which initiated it, if such exist.
