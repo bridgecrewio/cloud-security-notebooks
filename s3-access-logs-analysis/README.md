@@ -12,6 +12,11 @@ bucket does not use SSL.
 
 ## Setup
 
+### SageMaker role
+To run the notebook inside the account's SageMaker, a SageMaker role must be created with READ
+permissions to the logs bucket and write permissions to the bucket where the results will be stored.
+Also, the relevant athena permissions (AthenaFullAccess permissions) should be attached to this role.
+
 ### Envrioment Variables
 Configure AWS SDK with the account to collect (profile entry in AWS shared credentials file).
 In addition, the following environment variables needs to be set:
