@@ -20,7 +20,7 @@ transferred in each network interface.
 
 ## Architecture
 
-![Alt text](assets/arch.png?raw=true "Architecture")
+![Architecture](assets/arch.png?raw=true "Architecture")
 
 ## Setup
 
