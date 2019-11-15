@@ -8,7 +8,7 @@ bucket does not use SSL.
 
 ## Architecture
 
-![Alt text](assets/arch.png?raw=true "Architecture")
+![Alt text](s3-access-logs-analysis/assets/arcg.png "Architecture")
 
 ## Setup
 
